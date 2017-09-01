@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple example</title>
+    <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet">
+    <style type='text/css'>
+        body{
+          font-family: 'Inconsolata', monospace;
+        }
+        th, td {
+          border-bottom: 1px solid #ddd;
+          padding: 9px;
+        }
+        table {
+          border-collapse: collapse;
+          width: 250px;
+          margin: 0 auto;
+        }
+        .prediction{
+          background: #dfd;
+        }
+        #sheet, #scaled {
+            border:1px solid black;
+        }
+        .dimension{
+          display: flex;
+          font-size: 10px;
+          color: gray;
+        }
+        .header{
+          width: 100%;
+          font-size: 20px;
+          text-align: center;
+          font-weight: 700;
+          padding: 20px;
+        }
+        .workspace{
+          width:50%;
+          text-align: center;
+          float: left;
+        }
+        .draw{
+          padding: 15px;
+          display: inline-block;
+        }
+        .small{
+          position: relative;
+          top:145px;
+        }
+        .preview{
+          width: 10%;
+          float: left;
+        }
+        .actions{
+          text-align: center;
+        }
+        .result{
+          text-align: center;
+          width: 35%;
+          float: left;
+        }
+        button{
+          background: white;
+          border: 1px solid black;
+          font-family: 'Inconsolata', monospace;
+          width: 100px;
+          height: 40px;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="header">Interactive MNIST digit classifier</div>
+    <div class="workspace">
+      <div class="draw big">
+        <canvas id="sheet" width="280" height="280"></canvas>
+        <span class="dimension">280x280</span>
+      </div>
+      
+      <div class="actions">
+        <button id='clear button' onclick='clearCanvas()' value='Clear'>Clear</button>
+        <button id='scale button' onclick='drawScaled()' value='Predict'>Predict</button>
+      </div>
+    </div>
+    <div class="preview">
+      <div class="draw small">
+        <canvas id="scaled" width="28" height="28"></canvas>
+        <span class="dimension">28x28</span>
+      </div>
+    </div>
+    <div class="result">
+      <span><h3>Predictions</h3></span>
+      <table id="output">
+
+      </table>
+    </div>
+  </body>
+</html>
+<script src='process.js'></script>
+<script src='drawing.js'></script>
