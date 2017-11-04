@@ -37,6 +37,7 @@ class Reader:
 
 		all_image_list = temp[:, 0]
 		all_label_list = temp[:, 1]
+		all_label_list = all_label_list.astype(np.int32)
     
 		n_sample = len(all_label_list)
 
@@ -54,7 +55,7 @@ class Reader:
 		return self.get_batch(self.train_images, self.train_labels, img_w, img_h, batch_size, capacity)
 
 	def get_val_batch(self, img_w, img_h, batch_size, capacity):
-		return self.get_batch(val_images, val_labels, img_w, img_h, batch_size, capacity)
+		return self.get_batch(self.val_images, self.val_labels, img_w, img_h, batch_size, capacity)
 	
 	def get_batch(self, images, labels, width, height, batch_size, capacity):
 		images = tf.cast(images, tf.string)
@@ -72,9 +73,15 @@ class Reader:
 
 		return image_batch, label_batch
 
+	
+def get_image_as_tensor(image_file, width, height):
+	img_tensor = tf.image.decode_jpeg(tf.read_file(image_file), channels=3)
+	img_tensor = tf.image.resize_image_with_crop_or_pad(img_tensor, width, height)
+	img_tensor = tf.image.per_image_standardization(img_tensor)
 
-r = Reader('./data/train/', ['cat', 'dog'])
-r.split_image_list(0.2)
-print(r.get_train_batch(208,208,64,256))
+	return img_tensor
 
-
+#r = Reader('./data/train/', ['cat', 'dog'])
+#r.split_image_list(0.2)
+#print(r.get_train_batch(208,208,64,256))
+print(get_image_as_tensor('./data/train/cat.0.jpg', 208, 208))
