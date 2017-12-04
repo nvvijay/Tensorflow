@@ -13,7 +13,7 @@ RATIO = 0.2
 BATCH_SIZE = 64
 CAPACITY = 2000
 MAX_STEP = 10000
-learning_rate = 0.0003
+learning_rate = 0.01
 
 reader = reader.Reader('./data/train/', CLASSES)
 reader.split_image_list(RATIO)
@@ -60,8 +60,8 @@ with tf.Session() as sess:
                     val_writer.add_summary(summary_str, step)  
                                     
                 if step % 2000 == 0 or (step + 1) == MAX_STEP:
-                    checkpoint_path = os.path.join('./logs/train', 'model.ckpt')
-                    saver.save(sess, checkpoint_path, global_step=step)
+                    checkpoint_path = os.path.join('./logs/train', 'catdogmodel')
+                    saver.save(sess, checkpoint_path, global_step=step, write_meta_graph=False)
                     
         except tf.errors.OutOfRangeError:
             print('Done training -- epoch limit reached')
