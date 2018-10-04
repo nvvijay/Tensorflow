@@ -9,3 +9,6 @@ This repository contains various methods to classify the MNIST dataset.
 </ul>
 
 Each method increases in complexity introducing various features of tensorflow. It also integrates TensorBoard logging to visualize the algorithm.
+
+Also contains a client to test out the implemented model done with Flask
+![MNIST Client](client.png)
